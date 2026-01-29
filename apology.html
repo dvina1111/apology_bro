@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦊 I Am Sorry - Please Forgive Me 🦊</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: "Comic Sans MS", cursive, sans-serif; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            overflow: hidden;
+            position: relative;
+        }
+        .container { 
+            background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(20px); 
+            border-radius: 30px; 
+            padding: 40px; 
+            max-width: 500px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4); 
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.8s ease;
+        }
+        h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 20px; 
+            text-shadow: 0 0 20px rgba(255,255,255,0.8); 
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .apology-text { 
+            font-size: 1.4rem; 
+            margin-bottom: 30px; 
+            line-height: 1.5; 
+            opacity: 0.95;
+        }
+        .fox-image { 
+            width: 300px; 
+            height: 300px; 
+            object-fit: cover; 
+            border-radius: 20px; 
+            margin: 20px 0; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); 
+            transition: all 0.8s ease;
+            opacity: 1;
+        }
+        .buttons { 
+            display: flex; 
+            gap: 20px; 
+            justify-content: center; 
+            flex-wrap: wrap;
+        }
+        button { 
+            padding: 15px 35px; 
+            font-size: 1.2rem; 
+            border: none; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-family: inherit; 
+            transition: all 0.4s ease; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            min-width: 160px;
+        }
+        .accept-btn { 
+            background: linear-gradient(45deg, #00d4aa, #00e676); 
+            color: white; 
+        }
+        .accept-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 40px rgba(0,212,170,0.6); }
+        .decline-btn { 
+            background: linear-gradient(45deg, #ff6b6b, #ff5252); 
+            color: white; 
+        }
+        .decline-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 40px rgba(255,107,107,0.6); }
+        button:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+            transform: none; 
+        }
+        .happy-scene { 
+            background: linear-gradient(135deg, #a8e6cf 0%, #dcedc1 100%) !important; 
+            animation: happyShake 0.5s ease;
+        }
+        @keyframes happyShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .sad-scene { 
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important; 
+            animation: sadShake 0.5s ease;
+        }
+        @keyframes sadShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
+        .flowers { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1000;
+            opacity: 0;
+        }
+        .flower { 
+            position: absolute; 
+            font-size: 20px; 
+            animation: flowerFall 3s linear forwards; 
+        }
+        @keyframes flowerFall { 
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; } 
+            100% { transform: translateY(120vh) rotate(720deg); opacity: 0; } 
+        }
+        .rain { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1000;
+            opacity: 0;
+        }
+        .raindrop { 
+            position: absolute; 
+            font-size: 12px; 
+            color: #a0d8ef; 
+            animation: rainFall 1s linear infinite; 
+        }
+        @keyframes rainFall { 
+            0% { transform: translateY(-50px); opacity: 1; } 
+            100% { transform: translateY(120vh); opacity: 0; } 
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="flowers" id="flowers"></div>
+    <div class="rain" id="rain"></div>
+
+    <div class="container">
+        <h1>🦊 I Am So Sorry 🦊</h1>
+        <p class="apology-text">"Bruder , I made a mistake and I feel terrible. Please accept my apology? I promise to be better..."</p>
+
+        <!-- Peace flag fox image -->
+        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/6427b705-4e4d-41d5-b0da-75f294fae95f.png" alt="Female fox with peace flag" class="fox-image" id="foxImage">
+
+        <div class="buttons">
+            <button class="accept-btn" onclick="acceptApology()">✅ Accept Apology ❤️</button>
+            <button class="decline-btn" onclick="declineApology()">❌ Decline Apology 😢</button>
+        </div>
+    </div>
+
+    <script>
+        function acceptApology() {
+            const container = document.querySelector('.container');
+            const image = document.getElementById('foxImage');
+            const h1 = document.querySelector('h1');
+            const text = document.querySelector('.apology-text');
+            const buttons = document.querySelector('.buttons');
+
+            // Change to happy hugging foxes
+            image.src = "https://user-gen-media-assets.s3.amazonaws.com/seedream_images/4be5ce74-2033-4ed3-92d5-16ea01c08ef4.png";
+            container.classList.add('happy-scene');
+            h1.textContent = '🦊 Thank You! We Are Happy Again! 🦊';
+            text.textContent = '"Yay!Thank you for forgiving me Groß Bruder! 💕"';
+
+            buttons.classList.add('hidden');
+
+            // Flower shower
+            createFlowerShower();
+        }
+
+        function declineApology() {
+            const container = document.querySelector('.container');
+            const image = document.getElementById('foxImage');
+            const h1 = document.querySelector('h1');
+            const text = document.querySelector('.apology-text');
+            const buttons = document.querySelector('.buttons');
+
+            // Change to sad rainy foxes
+            image.src = "https://user-gen-media-assets.s3.amazonaws.com/seedream_images/de597761-564f-4326-95a0-806d0474a5e8.png";
+            container.classList.add('sad-scene');
+            h1.textContent = '🦊 I Am So Sad... 🦊';
+            text.textContent = '"I am heartbroken... I will try harder to make it right..."';
+
+            buttons.classList.add('hidden');
+
+            // Rain shower
+            createRainShower();
+        }
+
+        function createFlowerShower() {
+            const flowers = document.getElementById('flowers');
+            flowers.style.opacity = '1';
+            const flowerTypes = ['🌸', '🌺', '🌻', '🌼', '💐', '🌷', '💖'];
+
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.className = 'flower';
+                    flower.textContent = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+                    flower.style.left = Math.random() * 100 + 'vw';
+                    flower.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    flower.style.animationDelay = Math.random() * 0.5 + 's';
+                    flowers.appendChild(flower);
+
+                    setTimeout(() => flower.remove(), 5000);
+                }, i * 100);
+            }
+        }
+
+        function createRainShower() {
+            const rain = document.getElementById('rain');
+            rain.style.opacity = '1';
+
+            setInterval(() => {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                drop.textContent = '💧';
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 0.2 + 's';
+                rain.appendChild(drop);
+
+                setTimeout(() => drop.remove(), 1500);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
